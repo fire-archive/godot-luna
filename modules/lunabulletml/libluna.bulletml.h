@@ -25,9 +25,50 @@
 
 #include "core/reference.h"
 
+#include "thirdparty/bulletml/include/bulletmlparser-tinyxml.h"
+#include "thirdparty/bulletml/include/bulletmlparser.h"
+#include "thirdparty/bulletml/include/bulletmlrunner.h"
+#include "core/math/random_number_generator.h"
+
+class BulletCommand : public BulletMLRunner {
+private:	     
+	Ref<RandomNumberGenerator> rng;
+	int bullet;
+	double direction;
+	double speed;
+	
+public:
+	virtual double getBulletDirection() override { return 0.0; };
+	virtual double getAimDirection() override { return 0.0; };
+	virtual double getBulletSpeed() override { return 0.0; };
+	virtual double getDefaultSpeed() override { return 00.; };
+	virtual double getRank() override { return 0.0; };
+	virtual int getTurn() override { return 0; };
+	virtual void doVanish() override{};
+	virtual void createSimpleBullet(double p_direction, double p_speed) override {
+		rng.instance();
+		rng->randomize();
+		speed = p_speed;
+	};
+	virtual void createBullet(BulletMLState *state, double p_direction, double p_speed) override {
+		rng.instance();
+		rng->randomize();
+		direction = p_direction;
+		speed = p_speed;
+	};
+	virtual void doChangeDirection(double) override {}
+	virtual void doChangeSpeed(double) override {}
+	virtual void doAccelX(double) override {}
+	virtual void doAccelY(double) override {}
+	virtual double getBulletSpeedX() override { return 0.0; }
+	virtual double getBulletSpeedY() override { return 0.0; }
+	virtual double getRand() override { return rng->randf(); }
+};
+
 class LunaBulletml : public Reference {
 private:
 	GDCLASS(LunaBulletml, Reference);
+
 public:
 	LunaBulletml() {}
 
