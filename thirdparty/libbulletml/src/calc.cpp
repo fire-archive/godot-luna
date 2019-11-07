@@ -91,6 +91,9 @@ typedef double NumType;
 #define YYSTYPE double
 #define YYERROR_VERBOSE
 
+// Add error fixes
+#include <cstring>
+
 #include <cctype>
 #include <cmath>
 

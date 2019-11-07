@@ -4,3 +4,9 @@ Import('env')
 
 module_env = env.Clone()
 module_env.add_source_files(env.modules_sources, "*.cpp")
+
+env_thirdparty = module_env.Clone()
+env_thirdparty.disable_warnings()
+env_thirdparty.Append(CPPPATH=["#thirdparty/libbulletml/include/"])
+env_thirdparty.Append(CPPPATH=["#thirdparty/libbulletml/src/*.h"])
+env_thirdparty.add_source_files(env.modules_sources, Glob('#thirdparty/libbulletml/src/*.cpp'))
