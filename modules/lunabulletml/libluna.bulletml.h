@@ -31,30 +31,47 @@
 #include "core/math/random_number_generator.h"
 
 class BulletCommand : public BulletMLRunner {
+	BulletCommand(BulletMLParser *parser, int bullet, double direction, double speed) :
+		BulletMLRunner(parser),
+		bullet(bullet),
+		direction(direction),
+		speed(speed) {
+	}
+	
+	BulletCommand(BulletMLState *state, int bullet, double direction, double speed) :
+		BulletMLRunner(state),
+		bullet(bullet),
+		direction(direction),
+		speed(speed) {
+	}
+
 private:	     
 	Ref<RandomNumberGenerator> rng;
 	int bullet;
 	double direction;
 	double speed;
+	Vector<BulletCommand *> bullets;
 	
 public:
-	virtual double getBulletDirection() override { return 0.0; };
+	virtual double getBulletDirection() override { return direction; };
 	virtual double getAimDirection() override { return 0.0; };
-	virtual double getBulletSpeed() override { return 0.0; };
-	virtual double getDefaultSpeed() override { return 00.; };
+	virtual double getBulletSpeed() override { return speed; };
+	virtual double getDefaultSpeed() override { return 0.0; };
 	virtual double getRank() override { return 0.0; };
 	virtual int getTurn() override { return 0; };
-	virtual void doVanish() override{};
+	virtual void doVanish() override {
+	};
 	virtual void createSimpleBullet(double p_direction, double p_speed) override {
 		rng.instance();
 		rng->randomize();
 		speed = p_speed;
+		direction = p_direction;
 	};
 	virtual void createBullet(BulletMLState *state, double p_direction, double p_speed) override {
 		rng.instance();
 		rng->randomize();
-		direction = p_direction;
-		speed = p_speed;
+		BulletCommand *runner = new BulletCommand(state, rng->randi(), direction, speed);
+        bullets.push_back(runner);
 	};
 	virtual void doChangeDirection(double) override {}
 	virtual void doChangeSpeed(double) override {}
