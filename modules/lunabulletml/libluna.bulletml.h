@@ -23,43 +23,14 @@
 
 #pragma once
 
-#include <Animation.hpp>
-#include <ArrayMesh.hpp>
-#include <Directory.hpp>
-#include <EditorPlugin.hpp>
-#include <EditorSceneImporter.hpp>
-#include <Engine.hpp>
-#include <Material.hpp>
-#include <MeshInstance.hpp>
-#include <Node.hpp>
-#include <Ref.hpp>
-#include <Reference.hpp>
-#include <Skeleton.hpp>
-#include <String.hpp>
-#include <Texture.hpp>
-#include <Transform.hpp>
-#include <core/Godot.hpp>
-#include <core/GodotGlobal.hpp>
-#include <map>
-#include <vector>
-
-using godot::Array;
-using godot::ArrayMesh;
-using godot::Dictionary;
-using godot::EditorSceneImporter;
-using godot::Node;
-using godot::Ref;
-using godot::Reference;
-using godot::register_class;
-using godot::String;
-using godot::Variant;
+#include "core/reference.h"
 
 class LunaBulletml : public Reference {
 private:
-	GODOT_CLASS(LunaBulletml, Reference);
+	GDCLASS(LunaBulletml, Reference);
 public:
 	LunaBulletml() {}
 
 	void _init() {}
-	static void _register_methods();
+	static void _register_methods() {}
 };
